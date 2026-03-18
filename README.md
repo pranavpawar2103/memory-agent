@@ -16,19 +16,7 @@ Most AI assistants are stateless — every conversation starts from scratch. Ent
 
 ## How it works
 
-```
-User (Chainlit UI)
-        │
-        ▼
-LangGraph Orchestrator
-        │
-   ┌────┴────┐
-   ▼         ▼
-Planner   Executor ──► Tools (Search / Code / Calendar)
-              │
-              ▼
-           Critic ──► Self-correction loop (max 2 retries)
-```
+![MemoryOS Architecture](docs/architecture.svg)
 
 **Three-layer memory stack:**
 - `mem0` — long-term facts persisted across sessions
