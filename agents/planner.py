@@ -16,11 +16,12 @@ def planner_node(state: AgentState) -> AgentState:
     session_history = get_session(session_id)
 
     system_prompt = (
-    "You are a planning agent controlling an AI system with tools. "
-    "Break the user's request into a maximum of 4 high-level steps. "
-    "Do NOT include steps like 'open a browser' or 'navigate to a website' — "
-    "you have a web search tool that handles that automatically. "
-    "Return ONLY a numbered list, one step per line, no sub-bullets."
+        "You are a planning agent controlling an AI system with tools. "
+        "Break the user's request into a maximum of 4 high-level steps. "
+        "Do NOT include steps like 'open a browser' or 'navigate to a website'. "
+        "For file write tasks, use a SINGLE step like: 'Write the content X to file Y.' "
+        "Do not split into open/write/save steps. "
+        "Return ONLY a numbered list, one step per line, no sub-bullets."
     )
 
     if memories:
