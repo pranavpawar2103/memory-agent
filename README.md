@@ -4,7 +4,7 @@
 ![LangGraph](https://img.shields.io/badge/LangGraph-0.2+-purple.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 
-A production-grade AI agent that remembers users across sessions and autonomously completes multi-step tasks using real tools — web search, code execution, and Google Calendar.
+A production-grade AI agent that remembers users across sessions and autonomously completes multi-step tasks using real tools — web search, code execution, Google Calendar, and file I/O.
 
 ---
 
@@ -18,6 +18,7 @@ Most AI assistants are stateless — every conversation starts from scratch. Ent
 
 ![MemoryOS Architecture](docs/architecture.svg)
 
+
 **Three-layer memory stack:**
 - `mem0` — long-term facts persisted across sessions
 - In-memory dict — short-term session context
@@ -28,7 +29,7 @@ Most AI assistants are stateless — every conversation starts from scratch. Ent
 ## Features
 
 - **Persistent memory** — agent recalls user context across conversations using mem0
-- **Multi-tool execution** — Tavily web search, E2B sandboxed code execution, Google Calendar
+- **Multi-tool execution** — Tavily web search, E2B sandboxed code execution, Google Calendar, File I/O (read/write/list)
 - **Self-correction loop** — Critic node reviews every step and triggers retries on failure
 - **Production eval suite** — DeepEval benchmarks measuring faithfulness, hallucination, and answer relevancy
 - **Chainlit UI** — clean chat interface with plan visibility and streaming responses
@@ -45,6 +46,7 @@ Most AI assistants are stateless — every conversation starts from scratch. Ent
 | Web search | Tavily API |
 | Code execution | E2B sandbox |
 | Calendar | Google Calendar API |
+| File I/O | Python built-in (read/write/list) |
 | Frontend | Chainlit |
 | Evals | DeepEval |
 
@@ -82,7 +84,8 @@ memory-agent/
 ├── tools/
 │   ├── search.py         # Tavily web search
 │   ├── code_exec.py      # E2B sandboxed code execution
-│   └── calendar.py       # Google Calendar read/create/invite
+│   ├── calendar.py       # Google Calendar read/create/invite
+│   └── file_io.py        # Read, write, list local files
 ├── evals/
 │   ├── test_agent.py     # DeepEval test suite
 │   └── conftest.py
@@ -170,6 +173,17 @@ Agent Plan:
 [CALENDAR] → Event created + invite sent ✓
 ```
 
+```
+User: Write a file called notes.txt with the content: MemoryOS project notes. Then read it back.
+
+Agent Plan:
+1. Write the content to notes.txt
+2. Read the content from notes.txt
+
+[FILE] WRITE:notes.txt|MemoryOS project notes → File written successfully
+[FILE] READ:notes.txt → MemoryOS project notes ✓
+```
+
 ---
 
 ## API keys
@@ -201,3 +215,7 @@ Agent Plan:
 - GitHub: [github.com/pranavpawar2103](https://github.com/pranavpawar2103)
 
 ---
+
+## License
+
+MIT
